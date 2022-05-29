@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tutaj możesz obliczyć datę od wybranych przez ciebie dni</h1>
+    <br><br>
+    Twoja data od której chcesz obliczyć czas:<input type="date" id="dateInput" name="date"> <div id="dzień">⠀</div>
+    Wybierz : <input type="datetime-local" id="obecnie" name="date">
+    <br>
+    <div id="teraz"></div>
+    <br>
+    <button id="run" onclick="obliczanie()">Oblicz</button>
+    <div id="wynik"></div>
+
+    
+    <script>
+        czas()
+        let now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById("obecnie").value = now.toISOString().slice(0,16);
+        document.getElementById("dateInput").valueAsDate = new Date();
+        
+        function obliczanie() {
+            let date = document.getElementById("dateInput").valueAsDate;
+            date.setHours(0);
+            let now = new Date(document.getElementById("obecnie").value);
+            let diff = now.getTime() - date.getTime();
+            let diffDays = diff / (1000 * 3600 * 24);
+            let diffHours = diff / (1000 * 3600);
+            
+            document.getElementById("wynik").innerHTML = "Wynik: " + Math.floor(diffDays) + " dzień/dni (" + Math.floor(diffHours) + " godzin/y)";
+            document.getElementById("dzień").innerHTML = days[date.getDay()]
+        }
+        
+        function czas() {
+            let now = new Date();
+           
+        }
+
+        window.setInterval(czas, 1000);
+    </script>
+</body>
+</html>
